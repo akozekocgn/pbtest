@@ -1,0 +1,15 @@
+endpoint: http://localhost:4466/pbtest/dev
+datamodel: datamodel.prisma
+
+generate:
+  - generator: javascript-client
+    output: ./prisma-client/
+
+# Ensures Prisma client is re-generated after a datamodel change.
+hooks:
+  post-deploy:
+    - prisma generate
+
+# Seeds initial data into the database by running a script.
+seed:
+  run: node ./seed/index.js
